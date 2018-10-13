@@ -21,7 +21,7 @@
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="index.html">
-	<img src="resources/admin/layout2/img/logo-big.png" alt=""/>
+	<#--<img src="resources/admin/layout2/img/logo-big.png" alt=""/>-->
 	</a>
 </div>
 <!-- END LOGO -->
@@ -38,14 +38,14 @@
 		<div class="form-group">
 			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
 			<label class="control-label visible-ie8 visible-ie9">用户名</label>
-			<input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username"/>
+			<input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" id="username" name="username"/>
 		</div>
 		<div class="form-group">
 			<label class="control-label visible-ie8 visible-ie9">密码</label>
-			<input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password"/>
+			<input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password"/>
 		</div>
 		<div class="form-actions">
-			<button type="submit" class="btn btn-success uppercase btn-xs btn-block">登录</button>
+			<button type="button" onclick="login()" class="btn btn-success uppercase btn-xs btn-block">登录</button>
 		</div>
 		
 		<div class="create-account">
@@ -89,6 +89,13 @@
 </div>
 
 <!-- END JAVASCRIPTS -->
+<script src="${ctx}/jquery-easyui-1.3.3/jquery.min.js"></script>
+<script src="${ctx}/js/jquery.cookie.js"></script>
+<script src="${ctx}/js/common.js"></script>
+<script>
+	var ctx = '${ctx}';
+</script>
+<script src="${ctx}/js/index.js"></script>
 </body>
 <!-- END BODY -->
 </html>

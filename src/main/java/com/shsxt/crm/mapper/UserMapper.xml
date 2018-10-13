@@ -118,4 +118,9 @@
     select <include refid="Base_Column_List"/>
      from t_user where is_valid=1 and user_name=#{userName}
   </select>
+
+  <!--修改用户密码-->
+  <update id="updateUserPwd">
+    UPDATE t_user SET user_pwd=#{userPwd} WHERE id=#{id}
+  </update>
 </mapper>

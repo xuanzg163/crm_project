@@ -12,7 +12,7 @@
                 <img alt="logo" src="${ctx}/images/bglogo.png">
             </td>
             <td valign="bottom" align="right" width="50%">
-                <font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${(user.userName)!"sxt"}</font>【${(user.trueName)!"sxt" }】【${(user.roleName)!"系统管理员" }】
+                <font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${(user.userName)!"sxt"}</font>【${(user.trueName)!"sxt" }】<#--【${(user.roleName)!"系统管理员" }】-->
             </td>
         </tr>
     </table>
@@ -65,7 +65,7 @@
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:400px;height:250px;padding: 10px 20px"
-     closed="true" buttons="#dlg-buttons">
+     closed="true" buttons="#dlg-buttons" title="修改密码">
 
     <form id="fm" method="post">
         <table cellspacing="8px">
