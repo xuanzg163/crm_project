@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @auther zhangxuan
@@ -71,5 +73,9 @@ public class SaleChanceService extends BaseService<SaleChance> {
         AssertUtil.isTrue(StringUtils.isBlank(customerName), "客户名称为空");
         AssertUtil.isTrue(StringUtils.isBlank(linkMan), "联系人为空");
         AssertUtil.isTrue(StringUtils.isBlank(linkPhone), "联系电话为空");
+    }
+
+    public List<Map> queryAllCustomerManager(){
+        return saleChanceMapper.queryAllCustomerManager();
     }
 }

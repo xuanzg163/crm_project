@@ -206,4 +206,18 @@
       </if>
     </where>
   </select>
+
+  <!--下来框部分-->
+  <!--查询所有客户经理-->
+  <select id="queryAllCustomerManager" resultType="map">
+       SELECT
+  t_user.id,
+  t_user.true_name as trueName
+  FROM
+  t_role
+  INNER JOIN t_user_role ON t_role.id = t_user_role.role_id
+  INNER JOIN t_user ON t_user_role.user_id = t_user.id
+  WHERE
+  t_role.role_name = '客户经理'
+  </select>
 </mapper>

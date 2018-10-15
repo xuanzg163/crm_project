@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,5 +52,11 @@ public class SaleChanceController extends BaseController {
         Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
         saleChanceService.saveOrUpdateSaleChance(saleChance,userId);
         return sucess(CrmConstant.OPS_SUCCESS_MSG);
+    }
+
+    @RequestMapping("queryAllCustomerManager")
+    @ResponseBody
+    public List<Map> queryAllCustomerManager() {
+        return saleChanceService.queryAllCustomerManager();
     }
 }
