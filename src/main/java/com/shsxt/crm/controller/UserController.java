@@ -36,20 +36,10 @@ public class UserController extends BaseController {
     @RequestMapping("login")
     @ResponseBody
     public ResultInfo login(String userName, String userPwd){
-        ResultInfo resultInfo = new ResultInfo();
-        try {
+        /*int i = 1/0;*/
             UserInfo userInfo = userService.login(userName, userPwd);
             return success("登陆成功",userInfo);
-        }catch (ParamsException e) {
-            e.printStackTrace();
-            resultInfo.setCode(300);
-            resultInfo.setMsg(e.getMsg());
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultInfo.setCode(300);
-            resultInfo.setMsg(e.getMessage());
-        }
-        return resultInfo;
+
     }
 
     /**
@@ -66,19 +56,11 @@ public class UserController extends BaseController {
                                     String newPassword,
                                     String confirmPassword,
                                     HttpServletRequest request){
-        ResultInfo resultInfo = new ResultInfo();
         Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);// 获取id
 
-        try {
             userService.updateUserPwd(oldPassword, newPassword,
                     confirmPassword, userId);
             return sucess("修改成功");
-        } catch (ParamsException e) {
-            e.printStackTrace();
-            return success(e.getMsg(),300);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return success(e.getMessage(),300);
-        }
+
     }
 }
