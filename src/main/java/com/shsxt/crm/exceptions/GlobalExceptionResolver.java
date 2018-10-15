@@ -1,6 +1,7 @@
 package com.shsxt.crm.exceptions;
 
 import com.alibaba.fastjson.JSON;
+import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.model.ResultInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,14 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
          * 1. 区分是什么异常
          * 2. 区分是页面请求还是json请求
          * */
+
+        if (ex instanceof LoginException){
+            mv.addObject("errorMsg", CrmConstant.USER_NOT_LOGIN_MSG);
+            mv.setViewName("login_error");
+            return mv;
+        }
+
+
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
@@ -88,6 +97,7 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
         mv.addObject("errorMsg", "系统繁忙");//错误信息
         mv.addObject("errorCode", 300);//错误码
         mv.addObject("ctx", request.getContextPath());//上下文路径
+        mv.addObject("uri", request.getRequestURI()); // 请求路径
         return mv;
     }
 }
