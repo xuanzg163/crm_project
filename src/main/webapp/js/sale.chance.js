@@ -64,6 +64,7 @@ function openAddSaleChacneDialog() {
 }
 
 //添加
+//前台用表单提交
 function saveOrUpdateSaleChance() {
     $("#fm").form("submit",{
         url: ctx + '/saleChance/saveOrUpdateSaleChance',
@@ -71,7 +72,7 @@ function saveOrUpdateSaleChance() {
             return $(this).form('validate');
         },
         success:function (data) {
-            data = JSON.parse(data);
+            data = JSON.parse(data);//easy UI的表单提交，需要将数据转换成json
             if (data.code == 200){
                 $.messager.alert('来自Crm', data.msg, 'info', function () {
                     // 关闭弹窗
@@ -126,7 +127,7 @@ function deleteSaleChance() {
             }
             //console.log(ids);
             $.ajax({
-                url: ctx + '/saleChance/deleteSaleChanceBatch?'+ids,
+                url: ctx + '/saleChance/deleteSaleChanceBatch?'+ids,//jQuery的ajax提交，自动将数据转换成了json
                 type: 'post',
                 success:function (data) {
                     if (data.code == 200) {
