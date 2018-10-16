@@ -59,4 +59,11 @@ public class SaleChanceController extends BaseController {
     public List<Map> queryAllCustomerManager() {
         return saleChanceService.queryAllCustomerManager();
     }
+
+    @RequestMapping("deleteSaleChanceBatch")
+    @ResponseBody
+    public ResultInfo deleteSaleChanceBatch(Integer[] ids){
+        saleChanceService.deleteBatch(ids);
+        return sucess(CrmConstant.OPS_SUCCESS_MSG);
+    }
 }

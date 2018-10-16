@@ -20,7 +20,8 @@
         <th field="description" width="200" align="center">机会描述</th>
         <th field="createMan" width="100" align="center">创建人</th>
         <th field="createDate" width="100" align="center">创建时间</th>
-        <th field="trueName" width="200" align="center">指派人</th>
+        <#--<th field="trueName" width="200" align="center">指派人</th>-->
+        <th field="assignMan" width="200" align="center">指派人</th>
         <th field="assignTime" width="200" align="center">指派时间</th>
         <th field="state" width="100" align="center" formatter="formatterState">分配状态</th>
         <th field="devResult" width="200" align="center" formatter="formatterDevResult">客户开发状态</th>
@@ -82,12 +83,11 @@
             <tr>
                 <td>分配人:</td>
                 <td>
-                    <input type="text" id="assignMan" name="assignMan"/>
-                   <#--
+                    <#--<input type="text" id="assignMan" name="assignMan"/>-->
+
                     <input class="easyui-combobox" id="assignMan" name="assignMan"
                            valueField="id" textField="trueName"
-                           url="${ctx}/user/queryCustomerManagers" panelHeight="auto"/>
-                    -->
+                           url="${ctx}/saleChance/queryAllCustomerManager" panelHeight="auto"/>
                 </td>
             </tr>
         </table>

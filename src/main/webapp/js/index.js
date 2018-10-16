@@ -33,7 +33,9 @@ function login() {
             if (data.code == 200){
                 alert(data.msg);
 
-                //存用户信息到cookie
+                /**
+                 * 将用户信息存储到cookie中
+                 */
                 $.cookie('userIdStr', data.result.userIdStr);
                 $.cookie('userName', data.result.userName);
                 $.cookie('realName', data.result.realName);
