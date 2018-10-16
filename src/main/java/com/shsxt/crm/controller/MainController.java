@@ -29,7 +29,6 @@ public class MainController extends BaseController {
          * 查询用户，存入request作用域
          * 完成回显操作
          */
-//        int i = 1/0;
         Integer userid = LoginUserUtil.releaseUserIdFromCookie(request);
         User user = userService.queryById(userid);
         request.setAttribute("user",user);

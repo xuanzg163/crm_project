@@ -50,8 +50,19 @@ public class SaleChanceService extends BaseService<SaleChance> {
 
             if (null == id) {
                 //添加操作
-                saleChance.setState(0);
-                saleChance.setDevResult(0);
+                /***
+                 * 如果选择分配人, state 为 1 已分配, 设置分配时间
+                 * 如果未选择分配人, state 为 0 未分配
+                 * */
+                if (StringUtils.isBlank(saleChance.getAssignMan())){
+
+                saleChance.setState(0);//为分配
+                } else{
+                    saleChance.setState(1);//已分配
+                    saleChance.setAssignTime(new Date());//分配时间
+
+                }
+                saleChance.setDevResult(0);//未开发
                 saleChance.setIsValid(1);// 有效数据
                 saleChance.setCreateDate(new Date());// 创建事件
 
@@ -79,5 +90,9 @@ public class SaleChanceService extends BaseService<SaleChance> {
 
     public List<Map> queryAllCustomerManager(){
         return saleChanceMapper.queryAllCustomerManager();
+    }
+
+    public Integer updateSaleChanceDevResult(SaleChance saleChance){
+        return saleChanceMapper.updateSaleChanceDevResult(saleChance);
     }
 }

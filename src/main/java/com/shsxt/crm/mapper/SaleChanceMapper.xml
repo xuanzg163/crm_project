@@ -229,4 +229,9 @@
     </foreach>
     )
   </update>
+
+  <!-- 更新开发状态 -->
+  <update id="updateSaleChanceDevResult" parameterType="saleChance">
+    UPDATE t_sale_chance SET dev_result=#{devResult} WHERE id=#{id}
+  </update>
 </mapper>

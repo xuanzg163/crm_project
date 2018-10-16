@@ -9,6 +9,8 @@ import java.util.Map;
 
 @Repository
 public interface SaleChanceMapper extends BaseDao<SaleChance> {
+
     public List<Map> queryAllCustomerManager();
+    public Integer updateSaleChanceDevResult(SaleChance saleChance);
 
 }

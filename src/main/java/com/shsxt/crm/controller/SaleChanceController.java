@@ -73,4 +73,11 @@ public class SaleChanceController extends BaseController {
         saleChanceService.deleteBatch(ids);
         return success(CrmConstant.OPS_SUCCESS_MSG);
     }
+
+   @RequestMapping("updateSaleChanceDevResult")
+   @ResponseBody
+   public ResultInfo updateSaleChanceDevResult(SaleChance saleChance){
+       saleChanceService.updateSaleChanceDevResult(saleChance);
+       return success(CrmConstant.OPS_SUCCESS_MSG);
+   }
 }
