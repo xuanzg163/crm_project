@@ -18,29 +18,26 @@ public class BaseController {
         resultInfo.setCode(code);
         resultInfo.setMsg(msg);
         resultInfo.setResult(result);
-
         return resultInfo;
     }
 
-    public ResultInfo success(String msg,Object result ){
+    public ResultInfo success(String msg, Object result){
         ResultInfo resultInfo = new ResultInfo();
-        resultInfo.setResult(result);
         resultInfo.setMsg(msg);
-
+        resultInfo.setResult(result);
         return resultInfo;
     }
-    public ResultInfo success(String msg,Integer code ){
+
+    public ResultInfo success(Integer code, String msg){
         ResultInfo resultInfo = new ResultInfo();
         resultInfo.setCode(code);
         resultInfo.setMsg(msg);
-
         return resultInfo;
     }
 
-    public ResultInfo sucess(String msg){
+    public ResultInfo success(String msg){
         ResultInfo resultInfo = new ResultInfo();
         resultInfo.setMsg(msg);
-
         return resultInfo;
     }
 

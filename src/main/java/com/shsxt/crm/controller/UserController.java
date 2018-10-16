@@ -1,7 +1,6 @@
 package com.shsxt.crm.controller;
 
 import com.shsxt.crm.base.BaseController;
-import com.shsxt.crm.exceptions.ParamsException;
 import com.shsxt.crm.model.ResultInfo;
 import com.shsxt.crm.model.UserInfo;
 import com.shsxt.crm.service.UserService;
@@ -60,7 +59,7 @@ public class UserController extends BaseController {
 
             userService.updateUserPwd(oldPassword, newPassword,
                     confirmPassword, userId);
-            return sucess("修改成功");
+            return success("修改成功");
 
     }
 }

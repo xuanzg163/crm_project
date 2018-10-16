@@ -58,7 +58,7 @@ public class SaleChanceController extends BaseController {
 
         Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
         saleChanceService.saveOrUpdateSaleChance(saleChance,userId);
-        return sucess(CrmConstant.OPS_SUCCESS_MSG);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
     }
 
     @RequestMapping("queryAllCustomerManager")
@@ -71,6 +71,6 @@ public class SaleChanceController extends BaseController {
     @ResponseBody
     public ResultInfo deleteSaleChanceBatch(Integer[] ids){
         saleChanceService.deleteBatch(ids);
-        return sucess(CrmConstant.OPS_SUCCESS_MSG);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
     }
 }

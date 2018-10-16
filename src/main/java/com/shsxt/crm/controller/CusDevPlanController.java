@@ -1,6 +1,9 @@
 package com.shsxt.crm.controller;
 
 import com.shsxt.crm.base.BaseController;
+import com.shsxt.crm.constants.CrmConstant;
+import com.shsxt.crm.model.ResultInfo;
+import com.shsxt.crm.po.CusDevPlan;
 import com.shsxt.crm.po.SaleChance;
 import com.shsxt.crm.query.CusDevPlanQuery;
 import com.shsxt.crm.service.CusDevPlanService;
@@ -47,5 +50,18 @@ public class CusDevPlanController extends BaseController {
         return cusDevPlanService.queryForPage(query);
     }
 
+    @RequestMapping("saveOrUpdateCusDevPlan")
+    @ResponseBody
+    public ResultInfo saveOrUpdateCusDevPlan(CusDevPlan cusDevPlan,Integer sid){
+        cusDevPlanService.saveOrUpdateCusDevPlan(cusDevPlan,sid);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
+
+    @RequestMapping("deleteCusDevPlanBatch")
+    @ResponseBody
+    public ResultInfo deleteCusDevPlanBatch(Integer[] ids){
+        cusDevPlanService.deleteBatch(ids);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
 
 }
