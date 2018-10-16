@@ -83,5 +83,7 @@
         <a href="javascript:updateSaleChanceDevResult(3)" class="easyui-linkbutton" iconCls="icon-zzkf" plain="true" >终止开发</a>
     </div>
 
+    <script type="text/javascript" src="${ctx}/jquery-easyui-1.3.3/jquery.edatagrid.js"></script>
+    <script type="text/javascript" src="${ctx}/js/cus.dev.plan.detail.js"></script>
 
 </body>
