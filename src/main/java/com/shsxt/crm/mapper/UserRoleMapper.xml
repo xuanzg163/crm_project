@@ -11,23 +11,17 @@
   <sql id="Base_Column_List" >
     id, user_id, role_id, create_date, update_date
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
     <include refid="Base_Column_List" />
     from t_user_role
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="delete" parameterType="java.lang.Integer" >
     delete from t_user_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.shsxt.crm.po.UserRole" >
-    insert into t_user_role (id, user_id, role_id, 
-      create_date, update_date)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.shsxt.crm.po.UserRole" >
+  <insert id="save" parameterType="com.shsxt.crm.po.UserRole" >
     insert into t_user_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -64,7 +58,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shsxt.crm.po.UserRole" >
+  <update id="update" parameterType="com.shsxt.crm.po.UserRole" >
     update t_user_role
     <set >
       <if test="userId != null" >
@@ -82,12 +76,13 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shsxt.crm.po.UserRole" >
-    update t_user_role
-    set user_id = #{userId,jdbcType=INTEGER},
-      role_id = #{roleId,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+  <!--批量添加-->
+  <insert id="saveBatch" parameterType="list">
+    insert into t_user_role (user_id, role_id, create_date, update_date)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.userId}, #{item.roleId},#{item.createDate}, #{item.updateDate})
+    </foreach>
+  </insert>
 </mapper>

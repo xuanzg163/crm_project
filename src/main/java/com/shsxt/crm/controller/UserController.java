@@ -68,8 +68,8 @@ public class UserController extends BaseController {
 
     @RequestMapping("saveOrUpdateUser")
     @ResponseBody
-    public ResultInfo saveOrUpdateUser(User user){
-        userService.saveOrUpdateUser(user);
+    public ResultInfo saveOrUpdateUser(User user,Integer[] roleIds){
+        userService.saveOrUpdateUser(user,roleIds);
         return success(CrmConstant.OPS_SUCCESS_MSG);
     }
 

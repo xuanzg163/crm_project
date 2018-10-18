@@ -3,8 +3,10 @@ package com.shsxt.crm.service;
 import com.shsxt.crm.base.BaseService;
 import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.dao.UserMapper;
+import com.shsxt.crm.dao.UserRoleMapper;
 import com.shsxt.crm.model.UserInfo;
 import com.shsxt.crm.po.User;
+import com.shsxt.crm.po.UserRole;
 import com.shsxt.crm.utils.AssertUtil;
 import com.shsxt.crm.utils.Md5Util;
 import com.shsxt.crm.utils.UserIDBase64;
@@ -12,7 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhangxuan
@@ -26,11 +30,13 @@ public class UserService extends BaseService<User> {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserRoleMapper userRoleMapper;
     /**
      * 添加或更新用户
      * @param user
      */
-    public void saveOrUpdateUser(User user) {
+    public void saveOrUpdateUser(User user,Integer[] roleIds) {
         /***
          * 1 2 3 4 5
          * */
@@ -47,6 +53,30 @@ public class UserService extends BaseService<User> {
             user.setIsValid(1);
             user.setCreateDate(new Date());
             AssertUtil.isTrue(userMapper.save(user)<1, CrmConstant.OPS_FAILED_MSG);
+
+            /**
+             *  角色添加
+             * 1. 判断roleIds 是否为空
+             * 2. 获取用户ID
+             */
+
+            if (null !=roleIds && roleIds.length>0){
+
+                Integer userId = user.getId();
+                List<UserRole> userRoles = new ArrayList<>();
+                for (Integer roleId : roleIds){
+                    UserRole userRole = new UserRole();
+                    userRole.setUserId(userId);
+                    userRole.setRoleId(roleId);
+                    userRole.setCreateDate(new Date());
+                    userRole.setUpdateDate(new Date());
+                    userRoles.add(userRole);
+                }
+
+                AssertUtil.isTrue(userRoleMapper.saveBatch(userRoles) < userRoles.size(),
+                        CrmConstant.OPS_FAILED_MSG);
+            }
+
         }else{
             // 更新
         }

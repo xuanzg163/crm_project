@@ -21,7 +21,9 @@
     from t_user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="save" parameterType="com.shsxt.crm.po.User" >
+
+  <!--保存用户返回id主键-->
+  <insert id="save" parameterType="com.shsxt.crm.po.User" useGeneratedKeys="true" keyProperty="id">
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

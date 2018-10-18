@@ -9,7 +9,7 @@ function queryUsersByParams() {
 
 //添加
 function openAddUserDailog() {
-    openAddUserDailog("dig","添加用户");
+    openAddOrUpdateDlg("dlg","添加用户");
 }
 
 $(function () {
@@ -22,6 +22,6 @@ $(function () {
 });
 
 function saveOrUpdateUser() {
-    saveOrUpdateUser("fm",ctx +"/user/saveOrUpdateUser","dlg"
-    ,queryUsersByParams());
+    saveOrUpdateData("fm",ctx +"/user/saveOrUpdateUser","dlg"
+    ,queryUsersByParams);
 }
