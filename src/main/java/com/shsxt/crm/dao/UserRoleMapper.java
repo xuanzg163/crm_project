@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRoleMapper extends BaseDao<UserRole> {
 
+    public Integer queryUserRolesByUserId(Integer userId);
+    public Integer deleteUserRolesByUserId(Integer userId);
+
 }

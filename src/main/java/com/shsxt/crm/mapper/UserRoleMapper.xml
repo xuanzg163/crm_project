@@ -85,4 +85,15 @@
       (#{item.userId}, #{item.roleId},#{item.createDate}, #{item.updateDate})
     </foreach>
   </insert>
+
+  <!--通过用户id查询角色记录-->
+  <select id="queryUserRolesByUserId" parameterType="int" resultType="int">
+    SELECT count(*) FROM t_user_role WHERE user_id=#{userId}
+  </select>
+  
+  <!--通过用户id删除角色记录-->
+  <delete id="deleteUserRolesByUserId" parameterType="int">
+     DELETE FROM t_user_role WHERE user_id=#{userId}
+  </delete>
+
 </mapper>

@@ -73,4 +73,15 @@ public class UserController extends BaseController {
         return success(CrmConstant.OPS_SUCCESS_MSG);
     }
 
+    /**
+     *  删除
+     * @param ids
+     * @return
+     */
+    @RequestMapping("deleteUsers")
+    @ResponseBody
+    public ResultInfo deleteUsers(Integer[] ids){
+        userService.deleteUsers(ids);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
 }

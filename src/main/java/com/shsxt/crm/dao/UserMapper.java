@@ -7,10 +7,20 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserMapper extends BaseDao<User> {
-    //根据用户名查询用户
+
+    /**
+     * 根据用户名查询用户
+     * @param userName
+     * @return
+     */
     public User queryUserByName(String userName);
 
-    //修改用户密码
+    /**
+     * 修改用户密码
+     * @param userPwd
+     * @param id
+     * @return
+     */
     public Integer updateUserPwd(@Param("userPwd") String userPwd,
                                  @Param("id") Integer id);
 }

@@ -25,3 +25,14 @@ function saveOrUpdateUser() {
     saveOrUpdateData("fm",ctx +"/user/saveOrUpdateUser","dlg"
     ,queryUsersByParams);
 }
+
+//更新
+function openModifyuserDialog() {
+    openModifyDialog("dg","fm","dlg","更新用户");
+
+}
+
+// 删除
+function deleteUser() {
+    deleteData('dg',ctx + '/user/deleteUsers', queryUsersByParams);
+}

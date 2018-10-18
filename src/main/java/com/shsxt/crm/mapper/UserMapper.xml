@@ -162,4 +162,9 @@
     GROUP BY
     t_user.id
   </select>
+
+  <!--删除-->
+  <update id="delete" parameterType="int">
+     UPDATE t_user SET is_valid=0 WHERE id=#{id}
+  </update>
 </mapper>
