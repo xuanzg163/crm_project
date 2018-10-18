@@ -124,9 +124,11 @@
     UPDATE t_user SET user_pwd=#{userPwd} WHERE id=#{id}
   </update>
 
+  <!--查询用户信息包含用户角色-->
   <resultMap id="user_role" type="userDto" extends="BaseResultMap">
     <result column="role_name" property="roleName"></result>
   </resultMap>
+
   <select id="queryByParams" parameterType="userQuery" resultMap="user_role">
     SELECT
     t_user.id,

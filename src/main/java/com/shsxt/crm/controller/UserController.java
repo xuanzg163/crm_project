@@ -1,8 +1,10 @@
 package com.shsxt.crm.controller;
 
 import com.shsxt.crm.base.BaseController;
+import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.model.ResultInfo;
 import com.shsxt.crm.model.UserInfo;
+import com.shsxt.crm.po.User;
 import com.shsxt.crm.query.UserQuery;
 import com.shsxt.crm.service.UserService;
 import com.shsxt.crm.utils.LoginUserUtil;
@@ -61,6 +63,14 @@ public class UserController extends BaseController {
         query.setPageNum(page);
         query.setPageSize(rows);
         return userService.queryForPage(query);
+    }
+
+
+    @RequestMapping("saveOrUpdateUser")
+    @ResponseBody
+    public ResultInfo saveOrUpdateUser(User user){
+        userService.saveOrUpdateUser(user);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
     }
 
 }

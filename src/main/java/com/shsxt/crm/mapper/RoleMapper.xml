@@ -12,25 +12,13 @@
   <sql id="Base_Column_List" >
     id, role_name, role_remark, create_date, update_date, is_valid
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+  <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
     <include refid="Base_Column_List" />
     from t_role
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_role
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.shsxt.crm.po.Role" >
-    insert into t_role (id, role_name, role_remark, 
-      create_date, update_date, is_valid
-      )
-    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleRemark,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isValid,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.shsxt.crm.po.Role" >
+  <insert id="save" parameterType="com.shsxt.crm.po.Role" >
     insert into t_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -73,7 +61,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shsxt.crm.po.Role" >
+  <update id="update" parameterType="com.shsxt.crm.po.Role" >
     update t_role
     <set >
       <if test="roleName != null" >
@@ -94,13 +82,16 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shsxt.crm.po.Role" >
-    update t_role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      role_remark = #{roleRemark,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      is_valid = #{isValid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+
+  <!-- 查询所有角色 -->
+  <select id="queryAllRoles" resultType="map">
+    SELECT
+    t_role.id,
+    t_role.role_name as roleName
+    FROM
+    t_role
+    WHERE
+    t_role.is_valid = 1
+  </select>
 </mapper>

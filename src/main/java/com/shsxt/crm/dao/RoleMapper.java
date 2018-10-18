@@ -1,17 +1,14 @@
 package com.shsxt.crm.dao;
 
+import com.shsxt.crm.base.BaseDao;
 import com.shsxt.crm.po.Role;
+import org.springframework.stereotype.Repository;
 
-public interface RoleMapper {
-    int deleteByPrimaryKey(Integer id);
+import java.util.List;
+import java.util.Map;
 
-    int insert(Role record);
+@Repository
+public interface RoleMapper extends BaseDao<Role> {
+    public List<Map> queryAllRoles();
 
-    int insertSelective(Role record);
-
-    Role selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
 }

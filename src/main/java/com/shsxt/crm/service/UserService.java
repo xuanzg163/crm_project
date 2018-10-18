@@ -1,6 +1,7 @@
 package com.shsxt.crm.service;
 
 import com.shsxt.crm.base.BaseService;
+import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.dao.UserMapper;
 import com.shsxt.crm.model.UserInfo;
 import com.shsxt.crm.po.User;
@@ -10,6 +11,8 @@ import com.shsxt.crm.utils.UserIDBase64;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @author zhangxuan
@@ -22,6 +25,45 @@ public class UserService extends BaseService<User> {
 
     @Autowired
     private UserMapper userMapper;
+
+    /**
+     * 添加或更新用户
+     * @param user
+     */
+    public void saveOrUpdateUser(User user) {
+        /***
+         * 1 2 3 4 5
+         * */
+        checkUserParams(user);
+        user.setUpdateDate(new Date());
+        Integer id = user.getId();
+        if(null == id){
+            // 添加
+            /***
+             * 初始密码: 123456
+             * 存时应为加密的字符串
+             * */
+            user.setUserPwd(Md5Util.encode("123456"));
+            user.setIsValid(1);
+            user.setCreateDate(new Date());
+            AssertUtil.isTrue(userMapper.save(user)<1, CrmConstant.OPS_FAILED_MSG);
+        }else{
+            // 更新
+        }
+    }
+
+    private void checkUserParams(User user) {
+        /***
+         * 1. 非空校验
+         * 2. 用户名唯一校验
+         * */
+        String userName = user.getUserName();
+        AssertUtil.isTrue(StringUtils.isBlank(userName),"用户名为空");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getTrueName()),"真实姓名为空");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getEmail()),"邮箱为空");
+        AssertUtil.isTrue(StringUtils.isBlank(user.getPhone()),"联系方式为空");
+        AssertUtil.isTrue(null!=userMapper.queryUserByName(userName),"用户名已存在");
+    }
 
 
     /**
