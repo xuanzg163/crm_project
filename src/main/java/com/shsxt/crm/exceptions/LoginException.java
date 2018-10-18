@@ -3,7 +3,7 @@ package com.shsxt.crm.exceptions;
 import com.shsxt.crm.constants.CrmConstant;
 
 /**
- * @auther zhangxuan
+ * @author zhangxuan
  * @date 2018/10/15
  * @time 10:58
  */

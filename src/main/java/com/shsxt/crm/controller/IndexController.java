@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @auther zhangxuan
+ * @author zhangxuan
  * @date 2018/10/13
  * @time 10:15
  */

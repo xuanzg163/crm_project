@@ -1,7 +1,6 @@
 <html>
 <head>
 <#include "common.ftl" >
-    <script type="text/javascript" src="${ctx}/js/cus.dev.plan.detail.js"></script>
     </head>
 <body style="margin: 15px">
     <!--

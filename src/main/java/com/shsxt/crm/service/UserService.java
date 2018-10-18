@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @auther zhangxuan
+ * @author zhangxuan
  * @date 2018/10/13
  * @time 11:38
  */

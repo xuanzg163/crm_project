@@ -3,7 +3,7 @@ package com.shsxt.crm.query;
 import com.shsxt.crm.base.BaseQuery;
 
 /**
- * @auther zhangxuan
+ * @author zhangxuan
  * @date 2018/10/16
  * @time 15:02
  */

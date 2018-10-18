@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 /**
- * @auther zhangxuan
+ * @author zhangxuan
  * @date 2018/10/16
  * @time 13:43
  */

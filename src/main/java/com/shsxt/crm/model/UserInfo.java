@@ -1,7 +1,7 @@
 package com.shsxt.crm.model;
 
 /**
- * @auther zhangxuan
+ * @author zhangxuan
  * @date 2018/10/13
  * @time 14:59
  */
