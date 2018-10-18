@@ -27,7 +27,7 @@ function saveOrUpdateUser() {
 }
 
 //更新
-function openModifyuserDialog() {
+function openModifyUserDialog() {
     openModifyDialog("dg","fm","dlg","更新用户");
 
 }

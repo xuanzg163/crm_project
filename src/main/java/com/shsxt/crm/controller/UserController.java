@@ -2,9 +2,9 @@ package com.shsxt.crm.controller;
 
 import com.shsxt.crm.base.BaseController;
 import com.shsxt.crm.constants.CrmConstant;
+import com.shsxt.crm.dto.UserDto;
 import com.shsxt.crm.model.ResultInfo;
 import com.shsxt.crm.model.UserInfo;
-import com.shsxt.crm.po.User;
 import com.shsxt.crm.query.UserQuery;
 import com.shsxt.crm.service.UserService;
 import com.shsxt.crm.utils.LoginUserUtil;
@@ -68,7 +68,7 @@ public class UserController extends BaseController {
 
     @RequestMapping("saveOrUpdateUser")
     @ResponseBody
-    public ResultInfo saveOrUpdateUser(User user,Integer[] roleIds){
+    public ResultInfo saveOrUpdateUser(UserDto user, Integer[] roleIds){
         userService.saveOrUpdateUser(user,roleIds);
         return success(CrmConstant.OPS_SUCCESS_MSG);
     }
