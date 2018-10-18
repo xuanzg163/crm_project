@@ -16,7 +16,7 @@
     id, user_name, user_pwd, true_name, email, phone, is_valid, create_date, update_date
   </sql>
   <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_user
     where id = #{id,jdbcType=INTEGER}
@@ -113,14 +113,49 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <!--通过用户名查询用户-->
+
+  <!-- 通过用户名查询用户 -->
   <select id="queryUserByName" parameterType="string" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-     from t_user where is_valid=1 and user_name=#{userName}
+    SELECT <include refid="Base_Column_List"/> FROM t_user WHERE is_valid=1 AND user_name=#{userName}
   </select>
 
-  <!--修改用户密码-->
+  <!-- 更改用户密码 -->
   <update id="updateUserPwd">
     UPDATE t_user SET user_pwd=#{userPwd} WHERE id=#{id}
   </update>
+
+  <resultMap id="user_role" type="userDto" extends="BaseResultMap">
+    <result column="role_name" property="roleName"></result>
+  </resultMap>
+  <select id="queryByParams" parameterType="userQuery" resultMap="user_role">
+    SELECT
+    t_user.id,
+    t_user.user_name,
+    t_user.user_pwd,
+    t_user.true_name,
+    t_user.email,
+    t_user.phone,
+    t_user.is_valid,
+    t_user.create_date,
+    t_user.update_date,
+    GROUP_CONCAT(t_role.role_name) as role_name
+    FROM
+    t_user
+    LEFT JOIN t_user_role ON t_user_role.user_id = t_user.id
+    LEFT JOIN t_role ON t_role.id = t_user_role.role_id
+    <where>
+      t_user.is_valid = 1
+      <if test="null!=userName and ''!=userName">
+        and user_name like concat('%',#{userName},'%')
+      </if>
+      <if test="null!=email and ''!=email">
+        and email like concat('%',#{email},'%')
+      </if>
+      <if test="null!=phone and ''!=phone">
+        and phone like concat('%',#{phone},'%')
+      </if>
+    </where>
+    GROUP BY
+    t_user.id
+  </select>
 </mapper>
