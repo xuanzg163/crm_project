@@ -263,9 +263,5 @@ public class UserService extends BaseService<UserDto> {
         }
         return map;
     }
-
-    public static void main(String[] args) {
-        System.out.println("1".split(",").toString());
-    }
 }
 

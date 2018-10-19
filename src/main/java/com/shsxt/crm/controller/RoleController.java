@@ -23,6 +23,15 @@ public class RoleController extends BaseController {
     @Autowired
     private RoleService roleService;
 
+    /**
+     * 显示角色管理
+     * @return
+     */
+    @RequestMapping("index")
+    public String index(){
+        return "role";
+    }
+
     @RequestMapping("queryAllRoles")
     @ResponseBody
     public List<Map> queryAllRoles() {
