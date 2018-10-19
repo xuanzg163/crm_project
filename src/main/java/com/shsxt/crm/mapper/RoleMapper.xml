@@ -82,6 +82,9 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <delete id="delete" parameterType="int">
+     UPDATE t_role SET is_valid=0 WHERE id=#{id}
+  </delete>
 
 
   <!-- 查询所有角色 -->

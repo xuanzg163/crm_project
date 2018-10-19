@@ -5,11 +5,13 @@ import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.dao.ModuleMapper;
 import com.shsxt.crm.dao.PermissionMapper;
 import com.shsxt.crm.dao.RoleMapper;
+import com.shsxt.crm.dao.UserRoleMapper;
 import com.shsxt.crm.po.Permission;
 import com.shsxt.crm.po.Role;
 import com.shsxt.crm.utils.AssertUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,6 +36,48 @@ public class RoleService extends BaseService<Role> {
 
     @Autowired
     private ModuleMapper moduleMapper;
+
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    /**
+     * 删除角色
+     * @param ids
+     * @throws DataAccessException
+     */
+    public void deleteRoleBatch(Integer[] ids) throws DataAccessException {
+
+        /***
+         * 1. 每删除一个角色, 就要删除t_user_role的记录 和 t_permission
+         * */
+        if(null != ids && ids.length > 0){
+
+            for (Integer roleId: ids) {
+
+                //删除角色
+                AssertUtil.isTrue(roleMapper.delete(roleId) < 1,
+                        CrmConstant.OPS_FAILED_MSG);
+
+                //删权限
+                Integer num1 = permissionMapper.queryModulesByRoleId(roleId);
+
+                if (num1 > 0){
+                    AssertUtil.isTrue(permissionMapper.deleteModulesByRoleId(roleId)<num1,
+                            CrmConstant.OPS_FAILED_MSG);
+                }
+
+                //删除用户角色
+                Integer num2 = userRoleMapper.queryUserRolesByRoleId(roleId);
+                if (num2 > 0){
+                    AssertUtil.isTrue(userRoleMapper.deleteUserRolesByUserId(roleId)<num2,
+                            CrmConstant.OPS_FAILED_MSG);
+                }
+            }
+
+        }
+
+    }
+
 
     /**
      *  角色授权

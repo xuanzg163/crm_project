@@ -80,4 +80,11 @@ public class RoleController extends BaseController {
         roleService.doGrant(roleId,moduleIds);
         return success(CrmConstant.OPS_SUCCESS_MSG);
     }
+
+    @RequestMapping("deleteRoleBatch")
+    @ResponseBody
+    public ResultInfo deleteRoleBatch(Integer[] ids){
+        roleService.deleteRoleBatch(ids);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
 }

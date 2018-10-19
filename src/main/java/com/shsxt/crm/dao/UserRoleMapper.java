@@ -9,5 +9,7 @@ public interface UserRoleMapper extends BaseDao<UserRole> {
 
     public Integer queryUserRolesByUserId(Integer userId);
     public Integer deleteUserRolesByUserId(Integer userId);
+    public Integer queryUserRolesByRoleId(Integer roleId);
+    public Integer deleteUserRolesByRoleId(Integer roleId);
 
 }

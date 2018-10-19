@@ -96,4 +96,14 @@
      DELETE FROM t_user_role WHERE user_id=#{userId}
   </delete>
 
+  <!--通过角色id查询角色记录-->
+  <select id="queryUserRolesByRoleId" parameterType="int" resultType="int">
+    SELECT count(*) FROM t_user_role WHERE role_id=#{roleId}
+  </select>
+
+  <!--通过角色ID删除角色记录-->
+  <delete id="deleteUserRolesByRoleId" parameterType="int">
+    DELETE FROM t_user_role where role_id=#{roleId}
+  </delete>
+
 </mapper>
