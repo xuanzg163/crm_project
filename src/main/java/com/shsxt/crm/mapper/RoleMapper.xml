@@ -94,4 +94,18 @@
     WHERE
     t_role.is_valid = 1
   </select>
+
+  <!--参数查询-->
+  <select id="queryByParams" parameterType="roleQuery" resultMap="BaseResultMap">
+    select * from t_role
+    <where>
+      is_valid=1
+      <if test="null!=roleName and ''!=roleName">
+        and role_name like concat('%',#{roleName},'%')
+      </if>
+      <if test="null!=createDate and ''!=createDate">
+        and create_date &lt;= #{createDate}
+      </if>
+    </where>
+  </select>
 </mapper>
