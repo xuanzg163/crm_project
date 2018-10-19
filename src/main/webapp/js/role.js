@@ -31,29 +31,69 @@ function openRelationPermissionDialog() {
 
     //打开弹窗
     $("#permissionDlg").dialog("open");
+    // 设置 roleId
+    $('#roleId').val(rows[0].id);
     //加载树
     loadTree(rows[0].id);
 }
 
 var zTreeObj;
-
+//加载树的详细方法
 function loadTree(roleId) {
+    var setting = {
+        check: {
+            enable: true,
+            chkboxType :{ "Y" : "ps", "N" : "ps" }
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onCheck: zTreeOnCheck
+        }
+    };
     $.ajax({
-        url: ctx + "/module/queryAllModuleByRoleId?roleId="+roleId,
+        url: ctx + '/module/queryAllModuleByRoleId?roleId='+roleId,
         success:function (data) {
-            var setting = {
-                check: {
-                    enable: true,
-                    chkboxType: {"Y": "ps", "N": "ps"}
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                }
-            };
+
             var zNodes = data;
             zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+            zTreeOnCheck();// 初始化moduleIds
         }
     });
+}
+
+function zTreeOnCheck() {
+    var nodes = zTreeObj.getCheckedNodes(true);
+    var moduleIds = "";
+    for (var i = 0; i < nodes.length; i++) {
+        moduleIds +="moduleIds="+nodes[i].id+"&"
+    }
+    $("#moduleIds").val(moduleIds);
+}
+
+function doGrant() {
+    var roleId = $('#roleId').val();
+    var moduleIds = $('#moduleIds').val();
+
+    console.log(roleId)
+
+    $.ajax({
+        url:ctx +"/role/doGrant?roleId="+roleId+"&"+moduleIds,
+        success:function (data) {
+            if (data.code == 200) {
+                $.messager.alert('来自Crm', data.msg, 'info', function () {
+                    // 关闭弹窗
+                    $('#permissionDlg').dialog('close');
+                    // // 刷新数据表格
+                    // $('#dg').datagrid('load');
+                });
+            } else {
+                $.messager.alert('来自Crm', data.msg, 'error');
+            }
+        }
+    })
 }

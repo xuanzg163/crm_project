@@ -2,13 +2,17 @@ package com.shsxt.crm.service;
 
 import com.shsxt.crm.base.BaseService;
 import com.shsxt.crm.constants.CrmConstant;
+import com.shsxt.crm.dao.ModuleMapper;
+import com.shsxt.crm.dao.PermissionMapper;
 import com.shsxt.crm.dao.RoleMapper;
+import com.shsxt.crm.po.Permission;
 import com.shsxt.crm.po.Role;
 import com.shsxt.crm.utils.AssertUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,58 @@ public class RoleService extends BaseService<Role> {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private PermissionMapper permissionMapper;
+
+    @Autowired
+    private ModuleMapper moduleMapper;
+
+    /**
+     *  角色授权
+     * @param roleId
+     * @param moduleIds
+     */
+    public void doGrant(Integer roleId, Integer[] moduleIds) {
+        System.out.println(roleId);
+
+        AssertUtil.isTrue(null == roleId,"角色ID为空");
+        AssertUtil.isTrue(null == roleMapper.queryById(roleId),"角色不存在");
+
+        if (null != moduleIds && moduleIds.length > 0){
+            // 角色授权操作
+            // 先查询权限,有先删除再添加
+            // 先查询权限,无直接添加
+
+            Integer num = permissionMapper.queryModulesByRoleId(roleId);
+            if (num>0){
+                AssertUtil.isTrue(permissionMapper.deleteModulesByRoleId(roleId) <num
+                ,CrmConstant.OPS_FAILED_MSG);
+            }
+
+            /**
+             * 参数补全
+             */
+            List<Permission> permissions = new ArrayList<>();
+            for (Integer moduleId : moduleIds){
+                Permission permission = new Permission();
+                permission.setRoleId(roleId);
+                permission.setModuleId(moduleId);
+                permission.setCreateDate(new Date());
+                permission.setUpdateDate(new Date());
+
+                //获取权限码
+                permission.setAclValue(moduleMapper.queryById(moduleId).getOptValue());
+                permissions.add(permission);
+            }
+
+            AssertUtil.isTrue(permissionMapper.saveBatch(permissions)<permissions.size(),
+                    CrmConstant.OPS_FAILED_MSG);
+        }
+
+    }
+
+
 
     /**
      * 添加或更新

@@ -73,4 +73,11 @@ public class RoleController extends BaseController {
         roleService.saveOrUpdateRole(role);
         return success(CrmConstant.OPS_SUCCESS_MSG);
     }
+
+    @RequestMapping("doGrant")
+    @ResponseBody
+    public ResultInfo doGrant(Integer roleId, Integer[] moduleIds) {
+        roleService.doGrant(roleId,moduleIds);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
 }
