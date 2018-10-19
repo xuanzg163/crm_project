@@ -10,5 +10,6 @@ import java.util.Map;
 @Repository
 public interface RoleMapper extends BaseDao<Role> {
     public List<Map> queryAllRoles();
+    public Role queryRoleByName(String roleName);
 
 }

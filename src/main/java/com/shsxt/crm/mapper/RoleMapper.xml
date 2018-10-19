@@ -108,4 +108,9 @@
       </if>
     </where>
   </select>
+
+  <!--通过名字查找角色-->
+  <select id="queryRoleByName" parameterType="string" resultMap="BaseResultMap">
+    SELECT * from t_role WHERE is_valid=1 and role_name=#{roleName}
+  </select>
 </mapper>
