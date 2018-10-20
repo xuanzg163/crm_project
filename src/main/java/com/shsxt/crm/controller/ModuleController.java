@@ -1,7 +1,10 @@
 package com.shsxt.crm.controller;
 
 import com.shsxt.crm.base.BaseController;
+import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.dto.ModuleDto;
+import com.shsxt.crm.model.ResultInfo;
+import com.shsxt.crm.po.Module;
 import com.shsxt.crm.query.ModuleQuery;
 import com.shsxt.crm.service.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +58,38 @@ public class ModuleController extends BaseController {
         return moduleService.queryForPage(query);
     }
 
+    /**
+     * 查询权限
+     * @param grade
+     * @return
+     */
     @RequestMapping("queryModulesByGrade")
     @ResponseBody
     public List<Map> queryModulesByGrade(Integer grade) {
         return moduleService.queryModulesByGrade(grade);
     }
 
+    /**
+     * 添加
+     * @param module
+     * @return
+     */
+    @RequestMapping("saveOrUpdateModule")
+    @ResponseBody
+    public ResultInfo saveOrUpdateModule(Module module) {
+        moduleService.saveOrUpdateModule(module);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
+
+    /**
+     * 删除权限
+     * @param ids
+     * @return
+     */
+   /* @RequestMapping("deleteModule")
+    @ResponseBody
+    public ResultInfo deleteModule(Integer[] ids){
+        moduleService.deleteModule(ids);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }*/
 }

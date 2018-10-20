@@ -1,6 +1,7 @@
 package com.shsxt.crm.service;
 
 import com.shsxt.crm.base.BaseService;
+import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.dao.ModuleMapper;
 import com.shsxt.crm.dto.ModuleDto;
 import com.shsxt.crm.po.Module;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +38,15 @@ public class ModuleService extends BaseService<Module> {
          * 4. 执行操作
          * */
         checkModuleParams(module);
+        module.setUpdateDate(new Date());
+        Integer id = module.getId();
+        if(null==id){
+            module.setIsValid((byte) 1);
+            module.setCreateDate(new Date());
+            AssertUtil.isTrue(moduleMapper.save(module)<1, CrmConstant.OPS_FAILED_MSG);
+        }else{
+
+        }
     }
 
     /**
@@ -102,7 +113,7 @@ public class ModuleService extends BaseService<Module> {
            AssertUtil.isTrue(optValue.indexOf(parentOptValue) !=0,
                    "权限格式不正确,格式应为:"+parentOptValue+"xx");
        } else {
-
+           module.setParentId(null);
        }
 
     }
@@ -114,4 +125,5 @@ public class ModuleService extends BaseService<Module> {
     public List<Map> queryModulesByGrade(Integer grade) {
         return moduleMapper.queryModulesByGrade(grade);
     }
+
 }
