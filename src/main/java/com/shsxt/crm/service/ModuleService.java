@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhangxuan
@@ -22,5 +23,9 @@ public class ModuleService extends BaseService<Module> {
 
     public List<ModuleDto> queryAllModuleByRoleId(Integer roleId){
         return moduleMapper.queryAllModuleByRoleId(roleId);
+    }
+
+    public List<Map> queryModulesByGrade(Integer grade) {
+        return moduleMapper.queryModulesByGrade(grade);
     }
 }

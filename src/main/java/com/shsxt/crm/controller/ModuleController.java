@@ -54,4 +54,11 @@ public class ModuleController extends BaseController {
         query.setPageSize(rows);
         return moduleService.queryForPage(query);
     }
+
+    @RequestMapping("queryModulesByGrade")
+    @ResponseBody
+    public List<Map> queryModulesByGrade(Integer grade) {
+        return moduleService.queryModulesByGrade(grade);
+    }
+
 }

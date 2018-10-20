@@ -188,4 +188,16 @@
       </if>
     </where>
   </select>
+
+    <!--通过层级查询模块-->
+    <select id="queryModulesByGrade" parameterType="int" resultType="map">
+        SELECT
+    m.id,
+    m.module_name as moduleName
+    FROM
+    t_module AS m
+    WHERE
+    m.is_valid = 1 AND
+    m.grade = #{grade}
+    </select>
 </mapper>
