@@ -75,6 +75,7 @@ function zTreeOnCheck() {
     $("#moduleIds").val(moduleIds);
 }
 
+//授权
 function doGrant() {
     var roleId = $('#roleId').val();
     var moduleIds = $('#moduleIds').val();
@@ -97,3 +98,10 @@ function doGrant() {
         }
     })
 }
+
+//删除角色
+function deleteRole() {
+    deleteData("dg",ctx + "/role/deleteRoleBatch",queryRolesByParams);
+
+}
+
