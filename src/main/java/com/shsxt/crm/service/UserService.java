@@ -263,5 +263,14 @@ public class UserService extends BaseService<UserDto> {
         }
         return map;
     }
+
+    /**
+     * 通过用户id 查询所有模块的权限码
+     * @param userId
+     * @return
+     */
+    public List<String> queryAllAclValueByUserId(Integer userId){
+        return userMapper.queryAllAclValueByUserId(userId);
+    }
 }
 

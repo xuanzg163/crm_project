@@ -201,4 +201,16 @@
   <update id="delete" parameterType="int">
      UPDATE t_user SET is_valid=0 WHERE id=#{id}
   </update>
+
+  <!--通过用户id 查询所有模块的权限码-->
+  <select id="queryAllAclValueByUserId" parameterType="int" resultType="string">
+      SELECT
+      DISTINCT p.acl_value as aclValue
+      FROM
+      t_user_role AS ur
+      INNER JOIN t_permission AS p ON p.role_id = ur.role_id
+      WHERE
+      ur.user_id = #{userId}
+  </select>
+
 </mapper>

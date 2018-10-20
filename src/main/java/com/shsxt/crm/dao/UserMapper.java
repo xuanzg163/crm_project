@@ -6,6 +6,8 @@ import com.shsxt.crm.po.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserMapper extends BaseDao<UserDto> {
 
@@ -24,4 +26,11 @@ public interface UserMapper extends BaseDao<UserDto> {
      */
     public Integer updateUserPwd(@Param("userPwd") String userPwd,
                                  @Param("id") Integer id);
+
+    /**
+     *  通过用户id 查询所有模块的权限码
+     * @param userId
+     * @return
+     */
+    public List<String> queryAllAclValueByUserId(Integer userId);
 }
