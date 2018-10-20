@@ -189,8 +189,8 @@
     </where>
   </select>
 
-    <!--通过层级查询模块-->
-    <select id="queryModulesByGrade" parameterType="int" resultType="map">
+  <!--通过层级查询模块-->
+  <select id="queryModulesByGrade" parameterType="int" resultType="map">
         SELECT
     m.id,
     m.module_name as moduleName
@@ -200,4 +200,15 @@
     m.is_valid = 1 AND
     m.grade = #{grade}
     </select>
+
+  <!--通过模块名查询模块-->
+  <select id="queryModuleByName" parameterType="string" resultMap="BaseResultMap" >
+   SELECT * FROM t_module WHERE is_valid=1 and module_name=#{moduleName}
+  </select>
+
+  <!--通过权限码查询模块-->
+  <select id="queryModuleByOptValue" parameterType="string" resultMap="BaseResultMap">
+    SELECT * FROM t_module WHERE is_valid=1 and opt_value=#{optValue}
+  </select>
+
 </mapper>

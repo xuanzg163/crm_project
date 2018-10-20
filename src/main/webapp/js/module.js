@@ -22,7 +22,7 @@ function queryModulesByParams() {
 
 //添加
 function openAddModuleDailog() {
-    openAddOrUpdateDlg("dlg",'模块添加');
+    openAddOrUpdateDlg("dlg","模块添加");
 }
 
 $(function () {

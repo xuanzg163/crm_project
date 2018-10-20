@@ -13,4 +13,6 @@ public interface ModuleMapper extends BaseDao<Module> {
 
     public List<ModuleDto> queryAllModuleByRoleId(Integer roleId);
     public List<Map> queryModulesByGrade(Integer grade);
+    public Module queryModuleByName(String moduleName);
+    public Module queryModuleByOptValue(String optValue);
 }

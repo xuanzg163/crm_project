@@ -4,6 +4,8 @@ import com.shsxt.crm.base.BaseService;
 import com.shsxt.crm.dao.ModuleMapper;
 import com.shsxt.crm.dto.ModuleDto;
 import com.shsxt.crm.po.Module;
+import com.shsxt.crm.utils.AssertUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,90 @@ public class ModuleService extends BaseService<Module> {
 
     @Autowired
     private ModuleMapper moduleMapper;
+
+    /**
+     * 添加或更新
+     * @param module
+     */
+    public void saveOrUpdateModule(Module module) {
+
+        /**
+         * 1. 校验参数
+         * 2. 补全参数
+         * 3. 判断添加或者更新
+         * 4. 执行操作
+         * */
+        checkModuleParams(module);
+    }
+
+    /**
+     * 参数校验
+     * @param module
+     */
+    private void checkModuleParams(Module module) {
+
+        /**
+         * 非空校验
+         */
+        String moduleName = module.getModuleName();
+        AssertUtil.isTrue(StringUtils.isBlank(moduleName),"模块名称为空");
+        String optValue = module.getOptValue();
+        AssertUtil.isTrue(StringUtils.isBlank(optValue),"权限码为空");
+
+        /**
+         * 唯一校验
+         */
+        AssertUtil.isTrue(null != moduleMapper.queryModuleByName(moduleName),
+                "模块名称已存在");
+        AssertUtil.isTrue(null != moduleMapper.queryModuleByOptValue(optValue),
+                "权限码已存在");
+
+        //菜单层级
+        Integer grade = module.getGrade();
+        AssertUtil.isTrue(null == grade,"菜单层级为空");
+
+        /***
+         * 3. 根基层级确定位数
+         *  0  2
+         *  1  4
+         *  2  6
+         * */
+       Integer len = (grade + 1) * 2;
+       AssertUtil.isTrue(len != optValue.length(),
+               "权限码格不正确,应为" + len + "位");
+
+       if (grade > 0){
+           /***
+            * 4. 层级没有问题
+            *      当前  上级
+            * 1)    0    null
+            * 2)    1    0
+            * 3)    2    1
+            *
+            * 已知上级菜单的id, 需要获取他的层级
+            * */
+
+           Module parentModule = moduleMapper.queryById(module.getParentId());
+
+           //父模块层级
+           Integer parentGrade = parentModule.getGrade();
+           AssertUtil.isTrue(grade-parentGrade !=1,"菜单层级不正确");
+
+           /***
+            * 5. 权限码格式
+            * 1) 10   ->   10xx √     20xx  20xxxx  ×
+            * 2) 1010   ->   1010xx √     1020xx  20xxxx  ×
+            *
+            * 如果判断字符串是以指定字符串开头???
+            * */
+           String parentOptValue = parentModule.getOptValue();
+           AssertUtil.isTrue(optValue.indexOf(parentOptValue) !=0,
+                   "权限格式不正确,格式应为:"+parentOptValue+"xx");
+       } else {
+
+       }
+
+    }
 
     public List<ModuleDto> queryAllModuleByRoleId(Integer roleId){
         return moduleMapper.queryAllModuleByRoleId(roleId);
