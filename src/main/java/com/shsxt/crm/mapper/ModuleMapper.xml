@@ -211,4 +211,14 @@
     SELECT * FROM t_module WHERE is_valid=1 and opt_value=#{optValue}
   </select>
 
+  <!--批量删除-->
+  <update id="deleteBatchByOptValue" parameterType="string" >
+     UPDATE t_module SET is_valid=0 WHERE opt_value LIKE concat(#{optValue},'%')
+  </update>
+
+  <!--批量查询-->
+  <select id="selectTotalByOptValue" parameterType="string" resultType="int" >
+    SELECT count(*) from t_module  WHERE opt_value LIKE concat(#{optValue},'%')
+  </select>
+
 </mapper>

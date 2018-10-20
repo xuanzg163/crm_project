@@ -3,6 +3,7 @@ package com.shsxt.crm.service;
 import com.shsxt.crm.base.BaseService;
 import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.dao.ModuleMapper;
+import com.shsxt.crm.dao.PermissionMapper;
 import com.shsxt.crm.dto.ModuleDto;
 import com.shsxt.crm.po.Module;
 import com.shsxt.crm.utils.AssertUtil;
@@ -24,6 +25,37 @@ public class ModuleService extends BaseService<Module> {
 
     @Autowired
     private ModuleMapper moduleMapper;
+
+    @Autowired
+    private PermissionMapper permissionMapper;
+
+    public void deleteModule(Integer[] ids) {
+        AssertUtil.isTrue(null == ids || ids.length < 1,"请选择删除的模块");
+
+        for (Integer moduleId : ids){
+            Module module = moduleMapper.queryById(moduleId);
+
+            /**
+             * 当前表级联删除
+             */
+            String optValue = module.getOptValue();
+            Integer total = moduleMapper.selectTotalByOptValue(optValue);
+            if (total > 0){
+                AssertUtil.isTrue(moduleMapper.deleteBatchByOptValue(optValue)<total
+                        ,CrmConstant.OPS_FAILED_MSG);
+            }
+
+
+            /**
+             * 权限表级联删除
+             */
+            Integer total2 = permissionMapper.queryModulesByAclValue(optValue);
+            if (total2 > 0){
+                AssertUtil.isTrue(permissionMapper.deleteModulesByAclValue(optValue)<total2,
+                        CrmConstant.OPS_FAILED_MSG);
+            }
+        }
+    }
 
     /**
      * 添加或更新

@@ -113,4 +113,14 @@
     </foreach>
   </insert>
 
+  <!--通过模块ID查询权限总数-->
+  <select id="queryModulesByAclValue" parameterType="string" resultType="int">
+    select count(*) from t_permission where acl_value like concat(#{aclValue},'%')
+  </select>
+
+  <!--通过模块ID删除权限-->
+  <delete id="deleteModulesByAclValue" parameterType="string">
+    delete from t_permission where acl_value like concat(#{aclValue},'%')
+  </delete>
+
 </mapper>

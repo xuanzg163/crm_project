@@ -86,10 +86,10 @@ public class ModuleController extends BaseController {
      * @param ids
      * @return
      */
-   /* @RequestMapping("deleteModule")
+    @RequestMapping("deleteModule")
     @ResponseBody
     public ResultInfo deleteModule(Integer[] ids){
         moduleService.deleteModule(ids);
         return success(CrmConstant.OPS_SUCCESS_MSG);
-    }*/
+    }
 }
