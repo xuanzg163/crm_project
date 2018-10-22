@@ -28,7 +28,7 @@
         <table id="dg" class="easyui-datagrid" title="客户订单记录"
                style="width:700px;height:300px"
                pagination="true" rownumbers="true"
-               url="${ctx}/customerOrder/queryCustomerOrdersByParams?cid=${customer.id}" singleSelect="true">
+               url="${ctx}/customerOrder/queryCustomerOrdersByParams?cusId=${customer.id}" singleSelect="true">
             <thead>
             <tr>
                 <th field="id" width="50">编号</th>
@@ -62,7 +62,7 @@
                                readonly="readonly" /></td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td>状态</td>
-                    <td><input type="text" id="status" name="status"
+                    <td><input type="text" id="status" name="state"
                                readonly="readonly" /></td>
                 </tr>
                 <tr>
