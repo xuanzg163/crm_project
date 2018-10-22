@@ -312,4 +312,36 @@
     </foreach>
     )
   </update>
+
+  <!--查询流失客户-->
+  <select id="queryLossCustomers" resultMap="BaseResultMap">
+    SELECT
+    c.*
+    FROM
+    t_customer AS c
+    WHERE
+    c.is_valid = 1 AND
+    DATE_ADD(c.create_date,INTERVAL 6 MONTH) &lt; NOW() AND
+    c.id NOT IN ((
+    SELECT
+    DISTINCT co.cus_id
+    FROM
+    t_customer_order AS co
+    WHERE
+    co.is_valid = 1
+    AND
+    DATE_ADD(co.order_date,INTERVAL 6 MONTH) > NOW()
+    )) AND
+    c.state = 0
+  </select>
+
+  <!--批量更新客户状态-->
+  <update id="updateCustomerState" parameterType="list">
+    UPDATE t_customer SET state=1, update_date=NOW() WHERE id in (
+    <foreach collection="list" item="item" separator=",">
+      #{item.id}
+    </foreach>
+    )
+  </update>
+
 </mapper>

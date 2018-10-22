@@ -2,13 +2,17 @@ package com.shsxt.crm.service;
 
 import com.shsxt.crm.base.BaseService;
 import com.shsxt.crm.constants.CrmConstant;
+import com.shsxt.crm.dao.CustomerLossMapper;
 import com.shsxt.crm.dao.CustomerMapper;
 import com.shsxt.crm.po.Customer;
+import com.shsxt.crm.po.CustomerLoss;
 import com.shsxt.crm.utils.AssertUtil;
 import com.shsxt.crm.utils.MathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,43 @@ public class CustomerService extends BaseService<Customer> {
 
     @Autowired
     private CustomerMapper customerMapper;
+
+    @Autowired
+    private CustomerLossMapper customerLossMapper;
+
+    /**
+     * 查询流失客户
+     */
+    public void addLossCustomers() {
+
+        /***
+         * 1. 查询所有流失客户
+         * 2. 批量插入客户流失表
+         * */
+        List<Customer> customerList = customerMapper.queryLossCustomers();
+
+        if (!CollectionUtils.isEmpty(customerList)) {
+            //存流失客户列表
+            List<CustomerLoss> customerLossList = new ArrayList<>();
+
+            for (Customer customer:customerList) {
+                CustomerLoss customerLoss = new CustomerLoss();
+                customerLoss.setCusNo(customer.getKhno());
+                customerLoss.setCusName(customer.getName());
+                customerLoss.setCusManager(customer.getCusManager());
+                customerLoss.setState(0);// 预流失
+                customerLoss.setIsValid(1);// 有效
+                customerLoss.setCreateDate(new Date());
+                customerLoss.setUpdateDate(new Date());
+                customerLossList.add(customerLoss);
+            }
+
+            AssertUtil.isTrue(customerLossMapper.saveBatch(customerLossList)
+            <customerLossList.size(),CrmConstant.OPS_FAILED_MSG);
+            AssertUtil.isTrue(customerMapper.updateCustomerState(customerList)<customerList.size(),
+                    CrmConstant.OPS_FAILED_MSG);
+        }
+    }
 
     /**
      * 保存或更新客户信息

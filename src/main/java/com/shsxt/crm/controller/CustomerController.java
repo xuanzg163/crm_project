@@ -87,4 +87,15 @@ public class CustomerController extends BaseController {
         customerService.deleteBatch(ids);
         return success(CrmConstant.OPS_SUCCESS_MSG);
     }
+
+    /**
+     * 批量添加流失客户
+     * @return
+     */
+    @RequestMapping("addLossCustomers")
+    @ResponseBody
+    public ResultInfo addLossCustomers() {
+        customerService.addLossCustomers();
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
 }

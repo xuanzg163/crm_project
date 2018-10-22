@@ -12,4 +12,8 @@ public interface CustomerMapper extends BaseDao<Customer> {
 
     public List<Map> queryCustomerLevel(String dicName);
 
+    public List<Customer> queryLossCustomers();
+
+    public Integer updateCustomerState(List<Customer> customers);
+
 }
