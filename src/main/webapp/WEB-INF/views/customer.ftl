@@ -94,7 +94,7 @@
                     <input class="easyui-combobox" id="cusManager"
                            name="cusManager"
                            data-options="panelHeight:'auto',editable:false,valueField:'trueName'
-,textField:'trueName',url:'${ctx}/user/queryCustomerManagers'"/>&nbsp;
+,textField:'trueName',url:'${ctx}/saleChance/queryAllCustomerManager'"/>&nbsp;
                     <font color="red">*</font>
                 </td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
