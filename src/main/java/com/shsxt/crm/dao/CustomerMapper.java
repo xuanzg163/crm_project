@@ -11,4 +11,5 @@ import java.util.Map;
 public interface CustomerMapper extends BaseDao<Customer> {
 
     public List<Map> queryCustomerLevel(String dicName);
+
 }

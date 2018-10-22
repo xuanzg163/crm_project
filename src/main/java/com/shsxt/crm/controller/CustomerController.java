@@ -75,4 +75,16 @@ public class CustomerController extends BaseController {
         query.setPageSize(rows);
         return customerService.queryForPage(query);
     }
+
+    /**
+     * 删除客户信息
+     * @param ids
+     * @return
+     */
+    @RequestMapping("deleteCustomerBatch")
+    @ResponseBody
+    public ResultInfo deleteCustomerBatch(Integer[] ids) {
+        customerService.deleteBatch(ids);
+        return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
 }

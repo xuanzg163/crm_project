@@ -303,4 +303,13 @@
     d.is_valid = 1 AND
     d.data_dic_name = #{dicName}
   </select>
+
+  <!--删除客户信息-->
+  <update id="deleteBatch">
+    UPDATE t_customer SET is_valid=0 WHERE id in (
+    <foreach collection="array" item="item" separator=",">
+      #{item}
+    </foreach>
+    )
+  </update>
 </mapper>

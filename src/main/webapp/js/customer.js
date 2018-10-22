@@ -22,3 +22,8 @@ function saveOrUpdateCustomer() {
 function openModifyCustomerDialog() {
     openModifyDialog("dg","fm","dlg",'客户更新')
 }
+
+//删除
+function deleteCustomer() {
+    deleteData("dg",ctx + "/customer/deleteCustomerBatch",queryCustomersByParams);
+}
