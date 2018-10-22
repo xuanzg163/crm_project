@@ -119,6 +119,7 @@
   </select>
 
   <!--通过模块ID删除权限-->
+  <!--模糊删除-->
   <delete id="deleteModulesByAclValue" parameterType="string">
     delete from t_permission where acl_value like concat(#{aclValue},'%')
   </delete>
