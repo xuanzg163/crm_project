@@ -44,7 +44,7 @@
         <div title="客户管理" data-options="iconCls:'icon-khgl'" style="padding:10px;">
             <a href="javascript:openTab('客户信息管理','customer/index','icon-khxxgl')" class="easyui-linkbutton"
                data-options="plain:true,iconCls:'icon-khxxgl'" style="width: 150px;">客户信息管理</a>
-            <a href="javascript:openTab('客户流失管理','customer_loss/index','icon-khlsgl')" class="easyui-linkbutton"
+            <a href="javascript:openTab('客户流失管理','customerLoss/index','icon-khlsgl')" class="easyui-linkbutton"
                data-options="plain:true,iconCls:'icon-khlsgl'" style="width: 150px;">客户流失管理</a>
         </div>
         <div title="服务管理" data-options="iconCls:'icon-fwgl'" style="padding:10px">

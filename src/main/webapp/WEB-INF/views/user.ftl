@@ -17,7 +17,7 @@
         <th field="phone" width="100" align="center" >手机号</th>
         <th field="createDate" width="100" align="center" >创建时间</th>
         <th field="updateDate" width="100" align="center" >更新时间</th>
-        <th field="roleName" width="100" align="center" >所属角色</th>
+        <th field="roleName" width="100" align="center">所属角色</th>
     </tr>
     </thead>
 </table>

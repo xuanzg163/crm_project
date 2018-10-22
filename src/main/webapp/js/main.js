@@ -12,7 +12,6 @@ function openTab(text, url, iconCls) {
     }
 }
 
-
 // 退出
 function logout() {
     /***
