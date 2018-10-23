@@ -166,4 +166,21 @@
       #{item.updateDate})
     </foreach>
   </insert>
+
+  <!--查询流失客户分页-->
+  <select id="queryByParams" parameterType="CustomerLossQuery" resultMap="BaseResultMap">
+    select * from t_customer_loss
+    <where>
+      is_valid=1
+      <if test="null!=cusNo and ''!=cusNo">
+        and cus_no like concat('%',#{cusNo},'%')
+      </if>
+      <if test="null!=cusName and ''!=cusName">
+        and cus_name like concat('%',#{cusName},'%')
+      </if>
+      <if test="null!=createDate and ''!=createDate">
+        and create_date &lt;= #{createDate}
+      </if>
+    </where>
+  </select>
 </mapper>

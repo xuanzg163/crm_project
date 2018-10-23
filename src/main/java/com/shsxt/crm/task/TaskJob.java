@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
  * @time 8:53
  */
 
+/*
 @Component
 public class TaskJob {
     @Autowired
@@ -24,3 +25,4 @@ public class TaskJob {
 
     }
 }
+*/
