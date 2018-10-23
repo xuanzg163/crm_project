@@ -203,4 +203,24 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <!--查询分页-->
+  <select id="queryByParams" parameterType="CustomerServeQuery" resultMap="BaseResultMap">
+    select * from t_customer_serve
+    <where>
+      is_valid=1
+      <if test="null!=customer and ''!=customer">
+        and customer like concat('%',#{customer},'%')
+      </if>
+      <if test="null!=myd and ''!=myd">
+        and myd = #{myd}
+      </if>
+      <if test="null!=state and ''!=state">
+        and state = #{state}
+      </if>
+      <if test="null!=createDate and ''!=createDate">
+        and create_date &lt; #{createDate}
+      </if>
+    </where>
+  </select>
+
 </mapper>

@@ -38,16 +38,42 @@ public class CustomerServeService extends BaseService<CustomerServe> {
         customerServe.setUpdateDate(new Date());
 
         Integer id = customerServe.getId();
+        UserDto userDto = userMapper.queryById(userId);
 
         if (null == id) {
-            UserDto userDto = userMapper.queryById(userId);
             customerServe.setCreatePeople(userDto.getUserName());// 创建人
             customerServe.setState("1");// 初始状态1
             customerServe.setIsValid(1);// 有效状态1
             customerServe.setCreateDate(new Date());
             AssertUtil.isTrue(customerServeMapper.save(customerServe)<1,
                     CrmConstant.OPS_FAILED_MSG);
+        } else{
+
+            /***
+             *
+             * state变化
+             *
+             * 1 -> 2
+             * 2 -> 3
+             *
+             * */
+            String state = customerServe.getState();
+            if (state.equals("1")) {
+                customerServe.setState("2");
+                customerServe.setAssignTime(new Date());
+            } else if (state.equals("2")) {
+                customerServe.setState("3");
+                customerServe.setServiceProceTime(new Date());
+
+                //处理时间
+                customerServe.setServiceProcePeople(userDto.getUserName());
+
+            } else if (state.equals("3")){
+                customerServe.setState("4");
+            }
+
+            AssertUtil.isTrue(customerServeMapper.update(customerServe) < 1,
+                    CrmConstant.OPS_FAILED_MSG);
         }
     }
-
 }

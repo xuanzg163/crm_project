@@ -74,7 +74,7 @@
                 <td>分配给：</td>
                 <td>
                     <select name="assigner" class="easyui-combobox"
-                            url="${ctx}/user/queryCustomerManagers" valueField="id"
+                            url="${ctx}/saleChance/queryAllCustomerManager" valueField="id"
                             textField="trueName" style="width:200px;" editable="false"
                             panelHeight="auto">
                     </select>

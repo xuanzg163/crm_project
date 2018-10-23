@@ -22,6 +22,8 @@ public class CustomerServe {
 
     private String assigner;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date assignTime;
 
     private String serviceProce;

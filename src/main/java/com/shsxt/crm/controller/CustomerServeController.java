@@ -4,15 +4,18 @@ import com.shsxt.crm.base.BaseController;
 import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.model.ResultInfo;
 import com.shsxt.crm.po.CustomerServe;
+import com.shsxt.crm.query.CustomerServeQuery;
 import com.shsxt.crm.service.CustomerServeService;
 import com.shsxt.crm.utils.LoginUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author zhangxuan
@@ -55,5 +58,24 @@ public class CustomerServeController extends BaseController {
         Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
         customerServeService.saveOrUpdateCustomerServe(customerServe,userId);
         return success(CrmConstant.OPS_SUCCESS_MSG);
+    }
+
+    /**
+     * 查询分页
+     * @param page
+     * @param rows
+     * @param query
+     * @return
+     */
+    @RequestMapping("queryCustomerServesByParams")
+    @ResponseBody
+    public Map<String, Object> queryCustomerServesByParams(
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer rows,
+            CustomerServeQuery query
+    ){
+        query.setPageNum(page);
+        query.setPageSize(rows);
+        return customerServeService.queryForPage(query);
     }
 }
