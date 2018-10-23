@@ -16,4 +16,6 @@ public interface CustomerMapper extends BaseDao<Customer> {
 
     public Integer updateCustomerState(List<Customer> customers);
 
+    public List<Map> queryCustomerLevelNums();
+
 }

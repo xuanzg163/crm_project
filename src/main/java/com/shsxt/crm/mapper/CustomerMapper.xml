@@ -344,4 +344,16 @@
     )
   </update>
 
+  <!--echarts所需数据，查询用户名称和等级并按照等级分组-->
+  <select id="queryCustomerLevelNums" resultType="map">
+
+    SELECT
+Count(c.`name`) AS `value`,
+c.`level` AS `name`
+FROM
+t_customer AS c
+GROUP BY
+c.`level`
+
+  </select>
 </mapper>

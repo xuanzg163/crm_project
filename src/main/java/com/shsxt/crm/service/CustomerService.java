@@ -33,6 +33,15 @@ public class CustomerService extends BaseService<Customer> {
     private CustomerLossMapper customerLossMapper;
 
     /**
+     * 查询用户等级
+     */
+    public List<Map> queryCustomerLevelNums() {
+        return customerMapper.queryCustomerLevelNums();
+    }
+
+
+
+    /**
      * 查询流失客户
      */
     public void addLossCustomers() {
