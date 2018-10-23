@@ -1,6 +1,7 @@
 <html>
 <head>
 <#include "common.ftl" >
+    <script type="text/javascript" src="${ctx}/jquery-easyui-1.3.3/jquery.edatagrid.js"></script>
     <script type="text/javascript" src="${ctx}/js/customer.loss.reprieve.js"></script>
     </head>
 <body style="margin: 15px">
@@ -39,7 +40,7 @@
         <a href="javascript:delCusDevPlan()" class="easyui-linkbutton" iconCls="icon-remove" plain="true" >删除暂缓</a>
         <a href="javascript:saveOrUpdateCusDevPlan()" class="easyui-linkbutton" iconCls="icon-save" plain="true" >保存暂缓措施</a>
         <a href="javascript:$('#dg').edatagrid('cancelRow')" class="easyui-linkbutton" iconCls="icon-undo" plain="true" >撤销行</a>
-        <a href="javascript:updateSaleChanceDevResult(2)" class="easyui-linkbutton" iconCls="icon-kfcg" plain="true" >确认流失</a>
+        <a href="javascript:confirmLoss()" class="easyui-linkbutton" iconCls="icon-kfcg" plain="true" >确认流失</a>
     </div>
 
 
