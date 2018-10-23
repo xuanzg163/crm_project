@@ -322,7 +322,7 @@
     WHERE
     c.is_valid = 1 AND
     DATE_ADD(c.create_date,INTERVAL 6 MONTH) &lt; NOW() AND
-    c.id NOT IN ((
+    c.id NOT IN (
     SELECT
     DISTINCT co.cus_id
     FROM
@@ -331,11 +331,11 @@
     co.is_valid = 1
     AND
     DATE_ADD(co.order_date,INTERVAL 6 MONTH) > NOW()
-    )) AND
+    ) AND
     c.state = 0
   </select>
 
-  <!--批量更新客户状态-->
+  <!--批量更新流失客户状态-->
   <update id="updateCustomerState" parameterType="list">
     UPDATE t_customer SET state=1, update_date=NOW() WHERE id in (
     <foreach collection="list" item="item" separator=",">

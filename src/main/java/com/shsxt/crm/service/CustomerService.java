@@ -40,11 +40,15 @@ public class CustomerService extends BaseService<Customer> {
         /***
          * 1. 查询所有流失客户
          * 2. 批量插入客户流失表
+         * 3.流失客户状态添加
          * */
         List<Customer> customerList = customerMapper.queryLossCustomers();
 
         if (!CollectionUtils.isEmpty(customerList)) {
-            //存流失客户列表
+
+            /**
+             * 存流失客户列表
+             */
             List<CustomerLoss> customerLossList = new ArrayList<>();
 
             for (Customer customer:customerList) {
@@ -59,8 +63,15 @@ public class CustomerService extends BaseService<Customer> {
                 customerLossList.add(customerLoss);
             }
 
+            /**
+             * 批量插入流失客户到客户流失表
+             */
             AssertUtil.isTrue(customerLossMapper.saveBatch(customerLossList)
             <customerLossList.size(),CrmConstant.OPS_FAILED_MSG);
+
+            /**
+             * 流失客户状态添加为1
+             */
             AssertUtil.isTrue(customerMapper.updateCustomerState(customerList)<customerList.size(),
                     CrmConstant.OPS_FAILED_MSG);
         }
