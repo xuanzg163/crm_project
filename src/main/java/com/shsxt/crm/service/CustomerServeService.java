@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhangxuan
@@ -75,5 +77,9 @@ public class CustomerServeService extends BaseService<CustomerServe> {
             AssertUtil.isTrue(customerServeMapper.update(customerServe) < 1,
                     CrmConstant.OPS_FAILED_MSG);
         }
+    }
+
+    public List<Map> queryServeType(){
+        return customerServeMapper.queryServeType();
     }
 }

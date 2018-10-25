@@ -4,6 +4,7 @@ import com.shsxt.crm.base.BaseService;
 import com.shsxt.crm.constants.CrmConstant;
 import com.shsxt.crm.dao.CustomerLossMapper;
 import com.shsxt.crm.dao.CustomerMapper;
+import com.shsxt.crm.dao.CustomerServeMapper;
 import com.shsxt.crm.po.Customer;
 import com.shsxt.crm.po.CustomerLoss;
 import com.shsxt.crm.utils.AssertUtil;
@@ -31,6 +32,7 @@ public class CustomerService extends BaseService<Customer> {
 
     @Autowired
     private CustomerLossMapper customerLossMapper;
+
 
     /**
      * 查询用户等级
@@ -114,4 +116,6 @@ public class CustomerService extends BaseService<Customer> {
     public List<Map> queryCustomerLevel(String dicName){
         return customerMapper.queryCustomerLevel(dicName);
     }
+
+
 }

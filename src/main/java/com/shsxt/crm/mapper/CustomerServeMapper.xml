@@ -223,4 +223,15 @@
     </where>
   </select>
 
+  <!--客户服务分析-->
+  <select id="queryServeType" resultType="map">
+     SELECT
+    cs.serve_type AS `name`,
+    count(cs.serve_type) AS `value`
+    FROM
+    t_customer_serve AS cs
+    GROUP BY
+    cs.serve_type
+  </select>
+
 </mapper>

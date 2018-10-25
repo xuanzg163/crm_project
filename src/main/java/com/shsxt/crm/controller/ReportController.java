@@ -1,6 +1,7 @@
 package com.shsxt.crm.controller;
 
 import com.shsxt.crm.base.BaseController;
+import com.shsxt.crm.service.CustomerServeService;
 import com.shsxt.crm.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class ReportController extends BaseController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private CustomerServeService customerServeService;
+
     @RequestMapping("{state}")
     public String index(@PathVariable Integer state) {
 
@@ -32,8 +36,20 @@ public class ReportController extends BaseController {
 
         } else if (state == 1) {
             return "report_customerLevel";
+        } else if (state == 2) {
+            return "report_serve";
         }
         return "error";
+    }
+
+    /**
+     * 客户服务分析报表
+     * @return
+     */
+    @RequestMapping("queryServeType")
+    @ResponseBody
+    public List<Map> queryServeType(){
+        return customerServeService.queryServeType();
     }
 
     /**
