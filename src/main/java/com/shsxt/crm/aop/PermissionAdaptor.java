@@ -17,6 +17,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
+ * AOP切自定义注解形成切面
+ * 获取目标方法参数，判定权限码
  * @author zhangxuan
  * @date 2018/10/20
  * @time 19:05
@@ -28,9 +30,19 @@ public class PermissionAdaptor {
     @Autowired
     private HttpSession session;
 
+    /**
+     * 切自定义注解，形成一个切面
+     */
     @Pointcut("@annotation(com.shsxt.crm.annotations.RequestPermission)")
     public void cut() {}
 
+    /**
+     *  环绕通知
+     *  只有环绕通知可以获得目标方法
+     * @param pjp
+     * @return
+     * @throws Throwable
+     */
     @Around("cut()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
