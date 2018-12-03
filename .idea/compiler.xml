@@ -10,4 +10,9 @@
       </profile>
     </annotationProcessing>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="crm_project" options="-bootclasspath E:/Java/jdk1.8.0_191/jre/lib/rt.jar" />
+    </option>
+  </component>
 </project>

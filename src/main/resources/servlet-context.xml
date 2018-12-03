@@ -14,10 +14,12 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
+
     <!-- 扫描com.shsxt.crm.controller 下包 -->
     <context:component-scan base-package="com.shsxt.crm.controller" />
     <aop:aspectj-autoproxy />
 
+    <!--freemarker的相关配置-->
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/views/" />
@@ -53,7 +55,9 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
+            <!--拦截所有资源-->
             <mvc:mapping path="/**"/>
+            <!--放行指定资源、静态资源、用户登陆-->
             <mvc:exclude-mapping path="/index"/>
             <mvc:exclude-mapping path="/user/login"/>
             <mvc:exclude-mapping path="/css/*"/>
