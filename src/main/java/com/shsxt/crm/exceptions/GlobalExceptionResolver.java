@@ -16,6 +16,8 @@ import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 /**
+ * 全局异常实现类
+ * 实现HandlerExceptionResolver
  * @author zhangxuan
  * @date 2018/10/15
  * @time 9:32
@@ -33,17 +35,21 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
          * 1. 区分是什么异常
          * 2. 区分是页面请求还是json请求
          * */
-
         if (ex instanceof LoginException){
             mv.addObject("errorMsg", CrmConstant.USER_NOT_LOGIN_MSG);
             mv.setViewName("login_error");
             return mv;
         }
 
-
+        /**
+         * 区分请求
+         */
         if (handler instanceof HandlerMethod) {
+            //获取handlerMethod
             HandlerMethod handlerMethod = (HandlerMethod) handler;
+            //获取method
             Method method = handlerMethod.getMethod();
+            //获取ResponseBody
             ResponseBody responseBody = method.getAnnotation(ResponseBody.class);
 
             //2. 区分是页面请求还是json请求
@@ -51,26 +57,35 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
 
                 //普通页面跳转
                 if (ex instanceof ParamsException) {
-
                     ParamsException e = (ParamsException) ex;
                     mv.addObject("errorMsg", e.getMsg());
                 }
             } else {
 
-                //json
+                //json请求
                 ResultInfo info = new ResultInfo();
+                //设置错误参数
                 info.setCode(300);
                 info.setMsg("系统繁忙");
 
+                /**
+                 * 设置对应的参数错误信息参数
+                 */
                 if (ex instanceof ParamsException) {
                     ParamsException e = (ParamsException) ex;
                     info.setMsg(e.getMsg());
                 }
 
+                /**
+                 * 设置相应的编码格式，避免乱码
+                 */
                 response.setCharacterEncoding("utf-8");
                 response.setContentType("application/json;charset=utf-8");
                 PrintWriter pw = null;
 
+                /**
+                 * 通过流将数据写出
+                 */
                 try {
                     pw = response.getWriter();
                     pw.write(JSON.toJSONString(info));
@@ -80,6 +95,7 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
                     e.printStackTrace();
                 } finally {
                     if (null != pw) {
+                        //关闭资源
                         pw.close();
                     }
                 }
