@@ -39,6 +39,7 @@ public class PermissionAdaptor {
     /**
      *  环绕通知
      *  只有环绕通知可以获得目标方法
+     *  根据目标方法拿到自定义注解里的权限码
      * @param pjp
      * @return
      * @throws Throwable
@@ -54,8 +55,9 @@ public class PermissionAdaptor {
         String aclValue = permission.aclValue();
 
         /***
-         * 1. 获取目标方法的权限码
-         * 2. 获取当前用户的权限列表
+         * 1. 获取当前用户的权限码
+         * 2. 权限码判断
+         * 3. 没有权限返回对应信息
          * */
         List<String> permissions = (List<String>) session.
                 getAttribute(CrmConstant.USER_PERMISSIONS);
